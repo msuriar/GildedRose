@@ -22,7 +22,7 @@ class UsefulItem < Item
   end
 
   def update_sulfuras
-    return self
+    return SulfurasItem.new(@name, @sell_in, @quality).update
   end
 
   def update_passes
@@ -85,5 +85,11 @@ class ConcertItem < UsefulItem
     end
     limited_quality = [new_quality, 50].min
     return ConcertItem.new(@name, @sell_in-1, limited_quality)
+  end
+end
+
+class SulfurasItem < UsefulItem
+  def update
+    return self
   end
 end
