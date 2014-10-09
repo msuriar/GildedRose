@@ -45,7 +45,7 @@ describe GildedRose do
     bar.sell_in.should eq 11
   end
 
-  it "should stop at quality 50" do
+  it "should stop at Brie quality 50" do
     foo = UsefulItem.new("Aged Brie", -3, 50)
     bar = foo.update
     bar.quality.should eq 50
