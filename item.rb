@@ -26,18 +26,7 @@ class UsefulItem < Item
   end
 
   def update_passes
-    case
-    when 10 < @sell_in
-      new_quality = @quality+1
-    when 5 < @sell_in && @sell_in <= 10
-      new_quality = @quality+2
-    when 0 < @sell_in && @sell_in <= 5
-      new_quality = @quality+3
-    else
-      new_quality = 0
-    end
-    limited_quality = [new_quality, 50].min
-    return UsefulItem.new(@name, @sell_in-1, limited_quality)
+    return ConcertItem.new(@name, @sell_in, @quality).update
   end
 
   def update
@@ -79,5 +68,22 @@ class BrieItem < UsefulItem
     end
     limited_quality = [new_quality, 50].min
     return BrieItem.new(@name, @sell_in-1, limited_quality)
+  end
+end
+
+class ConcertItem < UsefulItem
+  def update
+    case
+    when 10 < @sell_in
+      new_quality = @quality+1
+    when 5 < @sell_in && @sell_in <= 10
+      new_quality = @quality+2
+    when 0 < @sell_in && @sell_in <= 5
+      new_quality = @quality+3
+    else
+      new_quality = 0
+    end
+    limited_quality = [new_quality, 50].min
+    return ConcertItem.new(@name, @sell_in-1, limited_quality)
   end
 end
