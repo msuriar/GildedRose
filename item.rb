@@ -36,15 +36,16 @@ class UsefulItem < Item
   def update_passes
     case
     when 10 < @sell_in
-      new_quality = [@quality+1,50].min
+      new_quality = @quality+1
     when 5 < @sell_in && @sell_in <= 10
-      new_quality = [@quality+2,50].min
+      new_quality = @quality+2
     when 0 < @sell_in && @sell_in <= 5
-      new_quality = [@quality+3,50].min
+      new_quality = @quality+3
     else
       new_quality = [0,50].min
     end
-    return UsefulItem.new(@name, @sell_in-1, new_quality)
+    limited_quality = [new_quality, 50].min
+    return UsefulItem.new(@name, @sell_in-1, limited_quality)
   end
 
   def update
