@@ -16,10 +16,7 @@ class GildedRose
   end
 
   def update_quality
-
-    for i in 0..(@items.size-1)
-      @items[i].update
-    end
+    @items.map { |i| i.update }
   end
 
 end
