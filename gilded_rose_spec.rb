@@ -102,7 +102,7 @@ describe GildedRose do
   end
 
   it "should keep ticket quality at zero after the concert" do
-    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 20)
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 0)
     foo.update.quality.should eq 0
   end
 
