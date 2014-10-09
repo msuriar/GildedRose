@@ -46,6 +46,16 @@ class UsefulItem < Item
     return UsefulItem.new(@name, @sell_in-1, limited_quality)
   end
 
+  def update_default
+    if @sell_in < 0
+      new_quality = @quality-2
+    else
+      new_quality = @quality-1
+    end
+    limited_quality = [new_quality, 0].max
+    return UsefulItem.new(@name, @sell_in-1, limited_quality)
+  end
+
   def update
     case @name
     when "Aged Brie"
@@ -54,6 +64,7 @@ class UsefulItem < Item
       return update_sulfuras
     when "Backstage passes to a TAFKAL80ETC concert"
       return update_passes
+    else return update_default
     end
 
     ret = UsefulItem.new(self.name, self.sell_in, self.quality)
