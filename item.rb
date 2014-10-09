@@ -3,16 +3,28 @@ class Item
 
   def quality
     @item.quality if @item
-    @quality
   end
 
   def sell_in
     @item.sell_in if @item
-    @sell_in
   end
 
   def initialize (name, sell_in, quality)
-    @name, @sell_in, @quality = name, sell_in, quality
+    @name = name
+    @item = klass_for(name).new(sell_in, quality)
+  end
+
+  def klass_for(name)
+    case name
+    when "Aged Brie"
+      BrieItem
+    when "Sulfuras, Hand of Ragnaros"
+      SulfurasItem
+    when "Backstage passes to a TAFKAL80ETC concert"
+      ConcertItem
+    else
+      NormalItem
+    end
   end
 
   def ==(i)
@@ -20,24 +32,17 @@ class Item
   end
 
   def tick
-    case @name
-    when "Aged Brie"
-      @item = BrieItem.new(@name, @sell_in, @quality)
-      @item.update
-    when "Sulfuras, Hand of Ragnaros"
-      @item = SulfurasItem.new(@name, @sell_in, @quality)
-      @item.update
-    when "Backstage passes to a TAFKAL80ETC concert"
-      @item = ConcertItem.new(@name, @sell_in, @quality)
-      @item.update
-    else
-      @item = NormalItem.new(@name, @sell_in, @quality)
-      @item.update
-    end
+    @item = @item.update
+    return self
   end
 end
 
-class NormalItem < Item
+class NormalItem
+  attr_reader :sell_in, :quality
+  def initialize(sell_in, quality)
+    @sell_in, @quality = sell_in, quality
+  end
+
   def update
     if @sell_in < 0
       new_quality = @quality-2
@@ -45,11 +50,16 @@ class NormalItem < Item
       new_quality = @quality-1
     end
     limited_quality = [new_quality, 0].max
-    return NormalItem.new(@name, @sell_in-1, limited_quality)
+    return NormalItem.new(@sell_in-1, limited_quality)
   end
 end
 
 class BrieItem < Item
+  attr_reader :sell_in, :quality
+  def initialize(sell_in, quality)
+    @sell_in, @quality = sell_in, quality
+  end
+
   def update
     if @sell_in < 0
       new_quality = @quality+2
@@ -57,11 +67,16 @@ class BrieItem < Item
       new_quality = @quality+1
     end
     limited_quality = [new_quality, 50].min
-    return BrieItem.new(@name, @sell_in-1, limited_quality)
+    return BrieItem.new(@sell_in-1, limited_quality)
   end
 end
 
 class ConcertItem < Item
+  attr_reader :sell_in, :quality
+  def initialize(sell_in, quality)
+    @sell_in, @quality = sell_in, quality
+  end
+
   def update
     case
     when 10 < @sell_in
@@ -74,11 +89,16 @@ class ConcertItem < Item
       new_quality = 0
     end
     limited_quality = [new_quality, 50].min
-    return ConcertItem.new(@name, @sell_in-1, limited_quality)
+    return ConcertItem.new(@sell_in-1, limited_quality)
   end
 end
 
 class SulfurasItem < Item
+  attr_reader :sell_in, :quality
+  def initialize(sell_in, quality)
+    @sell_in, @quality = sell_in, quality
+  end
+
   def update
     return self
   end
