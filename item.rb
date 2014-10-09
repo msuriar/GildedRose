@@ -20,13 +20,17 @@ class UsefulItem < Item
   def tick
     case @name
     when "Aged Brie"
-      return BrieItem.new(@name, @sell_in, @quality).update
+      @item = BrieItem.new(@name, @sell_in, @quality)
+      @item.update
     when "Sulfuras, Hand of Ragnaros"
-      return SulfurasItem.new(@name, @sell_in, @quality).update
+      @item = SulfurasItem.new(@name, @sell_in, @quality)
+      @item.update
     when "Backstage passes to a TAFKAL80ETC concert"
-      return ConcertItem.new(@name, @sell_in, @quality).update
+      @item = ConcertItem.new(@name, @sell_in, @quality)
+      @item.update
     else
-      return NormalItem.new(@name, @sell_in, @quality).update
+      @item = NormalItem.new(@name, @sell_in, @quality)
+      @item.update
     end
   end
 end
