@@ -2,11 +2,11 @@ class Item
   attr_reader :name
 
   def quality
-    @item.quality if @item
+    @item.quality
   end
 
   def sell_in
-    @item.sell_in if @item
+    @item.sell_in
   end
 
   def initialize (name, sell_in, quality)
@@ -54,7 +54,7 @@ class NormalItem
   end
 end
 
-class BrieItem < Item
+class BrieItem
   attr_reader :sell_in, :quality
   def initialize(sell_in, quality)
     @sell_in, @quality = sell_in, quality
@@ -71,7 +71,7 @@ class BrieItem < Item
   end
 end
 
-class ConcertItem < Item
+class ConcertItem
   attr_reader :sell_in, :quality
   def initialize(sell_in, quality)
     @sell_in, @quality = sell_in, quality
@@ -93,7 +93,7 @@ class ConcertItem < Item
   end
 end
 
-class SulfurasItem < Item
+class SulfurasItem
   attr_reader :sell_in, :quality
   def initialize(sell_in, quality)
     @sell_in, @quality = sell_in, quality
