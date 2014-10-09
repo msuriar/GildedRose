@@ -1,6 +1,15 @@
 class Item
+  attr_reader :name
 
-  attr_accessor :name, :sell_in, :quality
+  def quality
+    @item.quality if @item
+    @quality
+  end
+
+  def sell_in
+    @item.sell_in if @item
+    @sell_in
+  end
 
   def initialize (name, sell_in, quality)
     @name, @sell_in, @quality = name, sell_in, quality
