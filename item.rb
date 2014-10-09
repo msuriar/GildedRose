@@ -33,12 +33,28 @@ class UsefulItem < Item
     return self
   end
 
+  def update_passes
+    case
+    when 10 < @sell_in
+      new_quality = [@quality+1,50].min
+    when 5 < @sell_in && @sell_in <= 10
+      new_quality = [@quality+2,50].min
+    when 0 < @sell_in && @sell_in <= 5
+      new_quality = [@quality+3,50].min
+    else
+      new_quality = 0
+    end
+    return UsefulItem.new(@name, @sell_in-1, new_quality)
+  end
+
   def update
     case @name
     when "Aged Brie"
       return update_brie
     when "Sulfuras, Hand of Ragnaros"
       return update_sulfuras
+    when "Backstage passes to a TAFKAL80ETC concert"
+      return update_passes
     end
 
     ret = UsefulItem.new(self.name, self.sell_in, self.quality)
