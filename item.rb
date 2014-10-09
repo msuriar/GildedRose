@@ -18,13 +18,7 @@ class UsefulItem < Item
   end
 
   def update_brie
-    if @sell_in < 0
-      new_quality = @quality+2
-    else
-      new_quality = @quality+1
-    end
-    limited_quality = [new_quality, 50].min
-    return UsefulItem.new(@name, @sell_in-1, limited_quality)
+    return BrieItem.new(@name, @sell_in, @quality).update
   end
 
   def update_sulfuras
@@ -73,5 +67,17 @@ class NormalItem < UsefulItem
     end
     limited_quality = [new_quality, 0].max
     return NormalItem.new(@name, @sell_in-1, limited_quality)
+  end
+end
+
+class BrieItem < UsefulItem
+  def update
+    if @sell_in < 0
+      new_quality = @quality+2
+    else
+      new_quality = @quality+1
+    end
+    limited_quality = [new_quality, 50].min
+    return BrieItem.new(@name, @sell_in-1, limited_quality)
   end
 end
