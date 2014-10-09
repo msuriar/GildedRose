@@ -56,7 +56,7 @@ class UsefulItem < Item
     return UsefulItem.new(@name, @sell_in-1, limited_quality)
   end
 
-  def update
+  def tick
     case @name
     when "Aged Brie"
       return update_brie
@@ -66,51 +66,5 @@ class UsefulItem < Item
       return update_passes
     else return update_default
     end
-
-    ret = UsefulItem.new(self.name, self.sell_in, self.quality)
-    if (ret.name != "Aged Brie" && ret.name != "Backstage passes to a TAFKAL80ETC concert")
-      if (ret.quality > 0)
-        if (ret.name != "Sulfuras, Hand of Ragnaros")
-          ret.quality = ret.quality - 1
-        end
-      end
-    else
-      if (ret.quality < 50)
-        ret.quality = ret.quality + 1
-        if (ret.name == "Backstage passes to a TAFKAL80ETC concert")
-          if (ret.sell_in < 11)
-            if (ret.quality < 50)
-              ret.quality = ret.quality + 1
-            end
-          end
-          if (ret.sell_in < 6)
-            if (ret.quality < 50)
-              ret.quality = ret.quality + 1
-            end
-          end
-        end
-      end
-    end
-    if (ret.name != "Sulfuras, Hand of Ragnaros")
-      ret.sell_in = ret.sell_in - 1;
-    end
-    if (ret.sell_in < 0)
-      if (ret.name != "Aged Brie")
-        if (ret.name != "Backstage passes to a TAFKAL80ETC concert")
-          if (ret.quality > 0)
-            if (ret.name != "Sulfuras, Hand of Ragnaros")
-              ret.quality = ret.quality - 1
-            end
-          end
-        else
-          ret.quality = ret.quality - ret.quality
-        end
-      else
-        if (ret.quality < 50)
-          ret.quality = ret.quality + 1
-        end
-      end
-    end
-    ret
   end
 end

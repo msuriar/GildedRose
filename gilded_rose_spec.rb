@@ -35,105 +35,105 @@ describe GildedRose do
 
   it "should increase the quality of Brie" do
     foo = UsefulItem.new("Aged Brie", 2, 35)
-    bar = foo.update
+    bar = foo.tick
     bar.quality.should eq 36
   end
 
   it "should decrease the sell_in of Brie" do
     foo = UsefulItem.new("Aged Brie", 12, 0)
-    bar = foo.update
+    bar = foo.tick
     bar.sell_in.should eq 11
   end
 
   it "should stop at Brie quality 50" do
     foo = UsefulItem.new("Aged Brie", -3, 50)
-    bar = foo.update
+    bar = foo.tick
     bar.quality.should eq 50
   end
 
   it "should increase Brie quality by 2 after sell by date" do
     foo = UsefulItem.new("Aged Brie", -3, 25)
-    foo.update.quality.should eq 27
+    foo.tick.quality.should eq 27
   end
 
   it "should increase Brie quality by 2 after sell by date and stop at 50" do
     foo = UsefulItem.new("Aged Brie", -3, 49)
-    foo.update.quality.should eq 50
+    foo.tick.quality.should eq 50
   end
 
   it "should never modify Sulfuras" do
     foo = UsefulItem.new("Sulfuras, Hand of Ragnaros", 0, 80)
-    foo.update.should eq foo
+    foo.tick.should eq foo
   end
 
   it "should increase ticket quality" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 15, 20)
-    foo.update.quality.should eq 21
+    foo.tick.quality.should eq 21
   end
 
   it "should not increase ticket quality past 50" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 15, 50)
-    foo.update.quality.should eq 50
+    foo.tick.quality.should eq 50
   end
 
   it "should doubly increase ticket quality with 10 days to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 10, 20)
-    foo.update.quality.should eq 22
+    foo.tick.quality.should eq 22
   end
 
   it "should doubly increase ticket quality with 6 days to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 6, 20)
-    foo.update.quality.should eq 22
+    foo.tick.quality.should eq 22
   end
 
   it "should trebly increase ticket quality with 5 days to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 5, 20)
-    foo.update.quality.should eq 23
+    foo.tick.quality.should eq 23
   end
 
   it "should trebly increase ticket quality with 1 day to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 1, 20)
-    foo.update.quality.should eq 23
+    foo.tick.quality.should eq 23
   end
 
   it "should zero ticket quality with 0 days to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 0, 20)
-    foo.update.quality.should eq 0
+    foo.tick.quality.should eq 0
   end
 
   it "should keep ticket quality at zero after the concert" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 0)
-    foo.update.quality.should eq 0
+    foo.tick.quality.should eq 0
   end
 
   it "should decrement ticket sell_in after concert" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 20)
-    bar = foo.update
+    bar = foo.tick
     bar.sell_in.should eq (-3)
   end
 
   it "should decrement normal items by 1 while they are in date" do
     foo = UsefulItem.new("+5 Dexterity Vest", 10, 20)
-    foo.update.quality.should eq 19
+    foo.tick.quality.should eq 19
   end
 
   it "should decrement sell_in after it's negative" do
     foo = UsefulItem.new("+5 Dexterity Vest", -1, 20)
-    foo.update.sell_in.should eq (-2)
+    foo.tick.sell_in.should eq (-2)
   end
 
   it "should decrement quality at double rate after sell_in is negative" do
     foo = UsefulItem.new("Elixir of the Mongoose", -1, 20)
-    foo.update.quality.should eq 18
+    foo.tick.quality.should eq 18
   end
 
   it "should keep 0 quality items at 0" do
     foo = UsefulItem.new("Elixir of the Mongoose", 3, 0)
-    foo.update.quality.should eq 0
+    foo.tick.quality.should eq 0
   end
 
   it "should not decrement quality below 0" do
     foo = UsefulItem.new("My Hat", -3, 1)
-    foo.update.quality.should eq 0
+    foo.tick.quality.should eq 0
   end
 end
