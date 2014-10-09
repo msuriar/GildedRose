@@ -51,6 +51,16 @@ describe GildedRose do
     bar.quality.should eq 50
   end
 
+  it "should increase Brie quality by 2 after sell by date" do
+    foo = UsefulItem.new("Aged Brie", -3, 25)
+    foo.update.quality.should eq 27
+  end
+
+  it "should increase Brie quality by 2 after sell by date and stop at 50" do
+    foo = UsefulItem.new("Aged Brie", -3, 49)
+    foo.update.quality.should eq 50
+  end
+
   it "should never modify Sulfuras" do
     foo = UsefulItem.new("Sulfuras, Hand of Ragnaros", 0, 80)
     foo.update.should eq foo
