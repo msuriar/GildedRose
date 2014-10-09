@@ -10,7 +10,7 @@ describe GildedRose do
     expected << Item.new("Elixir of the Mongoose", 4, 6)
     expected << Item.new("Sulfuras, Hand of Ragnaros", 0, 80)
     expected << Item.new("Backstage passes to a TAFKAL80ETC concert", 14, 21)
-    expected << Item.new("Conjured Mana Cake", 2, 5)
+    expected << Item.new("Conjured Mana Cake", 2, 4)
     subject.update_quality
     subject.items.should eq expected
   end
@@ -134,6 +134,26 @@ describe GildedRose do
 
   it "should not decrement quality below 0" do
     foo = Item.new("My Hat", -3, 1)
+    foo.tick.quality.should eq 0
+  end
+
+  it "should decrement conjured items by 2 per day while they are in date" do
+    foo = Item.new("Conjured Mana Cake", 3, 6)
+    foo.tick.quality.should eq 4
+  end
+
+  it "should decrement conjured items by 4 per day while they are out of date" do
+    foo = Item.new("Conjured Mana Cake", -1, 10)
+    foo.tick.quality.should eq 6
+  end
+
+  it "should decrement conjured items' sell_in after they expire" do
+    foo = Item.new("Conjured Mana Cake", -1, 10)
+    foo.tick.sell_in.should eq (-2)
+  end
+
+  it "should not decrement conjured items below 0 quality" do
+    foo = Item.new("Conjured Mana Cake", -1, 3)
     foo.tick.quality.should eq 0
   end
 end

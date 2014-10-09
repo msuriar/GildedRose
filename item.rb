@@ -22,6 +22,8 @@ class Item
       SulfurasItem
     when "Backstage passes to a TAFKAL80ETC concert"
       ConcertItem
+    when "Conjured Mana Cake"
+      ConjuredItem
     else
       NormalItem
     end
@@ -88,5 +90,17 @@ end
 class SulfurasItem < BaseItem
   def update
     return self
+  end
+end
+
+class ConjuredItem < BaseItem
+  def update
+    if @sell_in < 0
+      new_quality = @quality-4
+    else
+      new_quality = @quality-2
+    end
+    limited_quality = [new_quality, 0].max
+    return ConjuredItem.new(@sell_in-1, limited_quality)
   end
 end
