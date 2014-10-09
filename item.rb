@@ -18,15 +18,13 @@ class UsefulItem < Item
   end
 
   def update_brie
-    ret = UsefulItem.new(name, sell_in, quality)
-    if quality < 50
-      ret.quality += 1
+    if @sell_in < 0
+      new_quality = @quality+2
+    else
+      new_quality = @quality+1
     end
-    if (sell_in < 0 && quality < 49)
-      ret.quality += 1
-    end
-    ret.sell_in -= 1
-    return ret
+    limited_quality = [new_quality, 50].min
+    return UsefulItem.new(@name, @sell_in-1, limited_quality)
   end
 
   def update_sulfuras
