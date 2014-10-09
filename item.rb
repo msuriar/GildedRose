@@ -42,7 +42,7 @@ class UsefulItem < Item
     when 0 < @sell_in && @sell_in <= 5
       new_quality = [@quality+3,50].min
     else
-      new_quality = 0
+      new_quality = [0,50].min
     end
     return UsefulItem.new(@name, @sell_in-1, new_quality)
   end
