@@ -66,6 +66,11 @@ describe GildedRose do
     foo.tick.should eq foo
   end
 
+  it "should allow Sulfuras to exceed upper limit" do
+    foo = Item.new("Sulfuras, Hand of Ragnaros", 0, 80)
+    foo.quality.should eq 80
+  end
+
   it "should increase ticket quality" do
     foo = Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 20)
     foo.tick.quality.should eq 21

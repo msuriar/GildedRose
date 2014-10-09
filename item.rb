@@ -94,6 +94,9 @@ class ConcertItem < BaseItem
 end
 
 class SulfurasItem < BaseItem
+  def initialize(sell_in, quality)
+    @sell_in, @quality = sell_in, quality
+  end
   def update
     return self
   end
