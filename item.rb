@@ -10,3 +10,10 @@ class Item
 
 
 end
+
+class UsefulItem < Item
+
+  def ==(another_item)
+    self.name == another_item.name && self.sell_in == another_item.sell_in && self.quality == another_item.quality
+  end
+end
