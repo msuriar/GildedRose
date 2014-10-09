@@ -32,4 +32,22 @@ describe GildedRose do
     bar = [UsefulItem.new("+5 Dexterity Vest", 10, 20)]
     foo.should_not eq bar
   end
+
+  it "should increase the quality of Brie" do
+    foo = UsefulItem.new("Aged Brie", 2, 35)
+    bar = foo.update
+    bar.quality.should eq 36
+  end
+
+  it "should decrease the sell_in of Brie" do
+    foo = UsefulItem.new("Aged Brie", 12, 0)
+    bar = foo.update
+    bar.sell_in.should eq 11
+  end
+
+  it "should stop at quality 50" do
+    foo = UsefulItem.new("Aged Brie", -3, 50)
+    bar = foo.update
+    bar.quality.should eq 50
+  end
 end
