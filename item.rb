@@ -44,6 +44,15 @@ class BaseItem
   def initialize(sell_in, quality)
     @sell_in, @quality = sell_in, quality
   end
+  def sanitize_quality(quality)
+    if quality < 0
+      return 0
+    elsif 50 < quality
+      return 50
+    else
+      return quality
+    end
+  end
 end
 
 class NormalItem < BaseItem
