@@ -46,7 +46,7 @@ class UsefulItem < Item
     return UsefulItem.new(@name, @sell_in-1, limited_quality)
   end
 
-  def update_default
+  def update
     if @sell_in < 0
       new_quality = @quality-2
     else
@@ -64,7 +64,7 @@ class UsefulItem < Item
       return update_sulfuras
     when "Backstage passes to a TAFKAL80ETC concert"
       return update_passes
-    else return update_default
+    else return update
     end
   end
 end
