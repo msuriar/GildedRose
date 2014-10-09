@@ -55,4 +55,39 @@ describe GildedRose do
     foo = UsefulItem.new("Sulfuras, Hand of Ragnaros", 0, 80)
     foo.update.should eq foo
   end
+
+  it "should increase ticket quality" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 15, 20)
+    foo.update.quality.should eq 21
+  end
+
+  it "should not increase ticket quality past 50" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 15, 50)
+    foo.update.quality.should eq 50
+  end
+
+  it "should doubly increase ticket quality with 10 days to go" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 10, 20)
+    foo.update.quality.should eq 22
+  end
+
+  it "should doubly increase ticket quality with 6 days to go" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 6, 20)
+    foo.update.quality.should eq 22
+  end
+
+  it "should trebly increase ticket quality with 5 days to go" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 5, 20)
+    foo.update.quality.should eq 23
+  end
+
+  it "should trebly increase ticket quality with 1 day to go" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 1, 20)
+    foo.update.quality.should eq 23
+  end
+
+  it "should zero increase ticket quality with 0 days to go" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 0, 20)
+    foo.update.quality.should eq 0
+  end
 end
