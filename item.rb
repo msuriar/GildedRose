@@ -47,13 +47,7 @@ class UsefulItem < Item
   end
 
   def update
-    if @sell_in < 0
-      new_quality = @quality-2
-    else
-      new_quality = @quality-1
-    end
-    limited_quality = [new_quality, 0].max
-    return UsefulItem.new(@name, @sell_in-1, limited_quality)
+    return NormalItem.new(@name, @sell_in, @quality).update
   end
 
   def tick
@@ -64,7 +58,20 @@ class UsefulItem < Item
       return update_sulfuras
     when "Backstage passes to a TAFKAL80ETC concert"
       return update_passes
-    else return update
+    else
+      return update
     end
+  end
+end
+
+class NormalItem < UsefulItem
+  def update
+    if @sell_in < 0
+      new_quality = @quality-2
+    else
+      new_quality = @quality-1
+    end
+    limited_quality = [new_quality, 0].max
+    return NormalItem.new(@name, @sell_in-1, limited_quality)
   end
 end
