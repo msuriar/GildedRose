@@ -38,6 +38,7 @@ class UsefulItem < Item
     when "Aged Brie"
       return update_brie
     when "Sulfuras, Hand of Ragnaros"
+      return update_sulfuras
     end
 
     ret = UsefulItem.new(self.name, self.sell_in, self.quality)
