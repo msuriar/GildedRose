@@ -13,10 +13,8 @@ end
 
 class UsefulItem < Item
 
-  def ==(another_item)
-    self.name == another_item.name\
-    && self.sell_in == another_item.sell_in\
-    && self.quality == another_item.quality
+  def ==(i)
+    self.name == i.name && self.sell_in == i.sell_in && self.quality == i.quality
   end
 
   def update
