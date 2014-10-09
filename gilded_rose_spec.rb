@@ -111,4 +111,9 @@ describe GildedRose do
     bar = foo.update
     bar.sell_in.should eq (-3)
   end
+
+  it "should decrement normal items by 1 while they are in date" do
+    foo = UsefulItem.new("+5 Dexterity Vest", 10, 20)
+    foo.update.quality.should eq 19
+  end
 end
