@@ -50,4 +50,9 @@ describe GildedRose do
     bar = foo.update
     bar.quality.should eq 50
   end
+
+  it "should never modify Sulfuras" do
+    foo = UsefulItem.new("Sulfuras, Hand of Ragnaros", 0, 80)
+    foo.update.should eq foo
+  end
 end
