@@ -8,11 +8,6 @@ class Item
     @quality = quality
   end
 
-
-end
-
-class UsefulItem < Item
-
   def ==(i)
     self.name == i.name && self.sell_in == i.sell_in && self.quality == i.quality
   end
@@ -35,7 +30,7 @@ class UsefulItem < Item
   end
 end
 
-class NormalItem < UsefulItem
+class NormalItem < Item
   def update
     if @sell_in < 0
       new_quality = @quality-2
@@ -47,7 +42,7 @@ class NormalItem < UsefulItem
   end
 end
 
-class BrieItem < UsefulItem
+class BrieItem < Item
   def update
     if @sell_in < 0
       new_quality = @quality+2
@@ -59,7 +54,7 @@ class BrieItem < UsefulItem
   end
 end
 
-class ConcertItem < UsefulItem
+class ConcertItem < Item
   def update
     case
     when 10 < @sell_in
@@ -76,7 +71,7 @@ class ConcertItem < UsefulItem
   end
 end
 
-class SulfurasItem < UsefulItem
+class SulfurasItem < Item
   def update
     return self
   end
