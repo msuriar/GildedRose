@@ -26,9 +26,16 @@ class UsefulItem < Item
     return ret
   end
 
+  def update_sulfuras
+    return self
+  end
+
   def update
-    if @name == "Aged Brie"
+    case @name
+    when "Aged Brie"
       return update_brie
+    when "Sulfuras, Hand of Ragnaros"
+      return update_sulfuras
     end
 
     ret = UsefulItem.new(self.name, self.sell_in, self.quality)
