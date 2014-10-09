@@ -42,7 +42,7 @@ end
 class BaseItem
   attr_reader :sell_in, :quality
   def initialize(sell_in, quality)
-    @sell_in, @quality = sell_in, quality
+    @sell_in, @quality = sell_in, sanitize_quality(quality)
   end
   def sanitize_quality(quality)
     if quality < 0
@@ -62,8 +62,7 @@ class NormalItem < BaseItem
     else
       new_quality = @quality-1
     end
-    limited_quality = [new_quality, 0].max
-    return NormalItem.new(@sell_in-1, limited_quality)
+    return NormalItem.new(@sell_in-1, new_quality)
   end
 end
 
@@ -74,8 +73,7 @@ class BrieItem < BaseItem
     else
       new_quality = @quality+1
     end
-    limited_quality = [new_quality, 50].min
-    return BrieItem.new(@sell_in-1, limited_quality)
+    return BrieItem.new(@sell_in-1, new_quality)
   end
 end
 
@@ -91,8 +89,7 @@ class ConcertItem < BaseItem
     else
       new_quality = 0
     end
-    limited_quality = [new_quality, 50].min
-    return ConcertItem.new(@sell_in-1, limited_quality)
+    return ConcertItem.new(@sell_in-1, new_quality)
   end
 end
 
@@ -109,7 +106,6 @@ class ConjuredItem < BaseItem
     else
       new_quality = @quality-2
     end
-    limited_quality = [new_quality, 0].max
-    return ConjuredItem.new(@sell_in-1, limited_quality)
+    return ConjuredItem.new(@sell_in-1, new_quality)
   end
 end
