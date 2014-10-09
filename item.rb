@@ -18,48 +18,50 @@ class UsefulItem < Item
   end
 
   def update
-    if (self.name != "Aged Brie" && self.name != "Backstage passes to a TAFKAL80ETC concert")
-      if (self.quality > 0)
-        if (self.name != "Sulfuras, Hand of Ragnaros")
-          self.quality = self.quality - 1
+    ret = UsefulItem.new(self.name, self.sell_in, self.quality)
+    if (ret.name != "Aged Brie" && ret.name != "Backstage passes to a TAFKAL80ETC concert")
+      if (ret.quality > 0)
+        if (ret.name != "Sulfuras, Hand of Ragnaros")
+          ret.quality = ret.quality - 1
         end
       end
     else
-      if (self.quality < 50)
-        self.quality = self.quality + 1
-        if (self.name == "Backstage passes to a TAFKAL80ETC concert")
-          if (self.sell_in < 11)
-            if (self.quality < 50)
-              self.quality = self.quality + 1
+      if (ret.quality < 50)
+        ret.quality = ret.quality + 1
+        if (ret.name == "Backstage passes to a TAFKAL80ETC concert")
+          if (ret.sell_in < 11)
+            if (ret.quality < 50)
+              ret.quality = ret.quality + 1
             end
           end
-          if (self.sell_in < 6)
-            if (self.quality < 50)
-              self.quality = self.quality + 1
+          if (ret.sell_in < 6)
+            if (ret.quality < 50)
+              ret.quality = ret.quality + 1
             end
           end
         end
       end
     end
-    if (self.name != "Sulfuras, Hand of Ragnaros")
-      self.sell_in = self.sell_in - 1;
+    if (ret.name != "Sulfuras, Hand of Ragnaros")
+      ret.sell_in = ret.sell_in - 1;
     end
-    if (self.sell_in < 0)
-      if (self.name != "Aged Brie")
-        if (self.name != "Backstage passes to a TAFKAL80ETC concert")
-          if (self.quality > 0)
-            if (self.name != "Sulfuras, Hand of Ragnaros")
-              self.quality = self.quality - 1
+    if (ret.sell_in < 0)
+      if (ret.name != "Aged Brie")
+        if (ret.name != "Backstage passes to a TAFKAL80ETC concert")
+          if (ret.quality > 0)
+            if (ret.name != "Sulfuras, Hand of Ragnaros")
+              ret.quality = ret.quality - 1
             end
           end
         else
-          self.quality = self.quality - self.quality
+          ret.quality = ret.quality - ret.quality
         end
       else
-        if (self.quality < 50)
-          self.quality = self.quality + 1
+        if (ret.quality < 50)
+          ret.quality = ret.quality + 1
         end
       end
     end
+    ret
   end
 end

@@ -16,7 +16,7 @@ class GildedRose
   end
 
   def update_quality
-    @items.map { |i| i.update }
+    @items = @items.map { |i| i.update }
   end
 
 end
