@@ -17,7 +17,20 @@ class UsefulItem < Item
     self.name == i.name && self.sell_in == i.sell_in && self.quality == i.quality
   end
 
+  def update_brie
+    ret = UsefulItem.new(name, sell_in, quality)
+    if quality < 50
+      ret.quality += 1
+    end
+    ret.sell_in -= 1
+    return ret
+  end
+
   def update
+    if @name == "Aged Brie"
+      return update_brie
+    end
+
     ret = UsefulItem.new(self.name, self.sell_in, self.quality)
     if (ret.name != "Aged Brie" && ret.name != "Backstage passes to a TAFKAL80ETC concert")
       if (ret.quality > 0)
