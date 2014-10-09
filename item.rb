@@ -17,32 +17,16 @@ class UsefulItem < Item
     self.name == i.name && self.sell_in == i.sell_in && self.quality == i.quality
   end
 
-  def update_brie
-    return BrieItem.new(@name, @sell_in, @quality).update
-  end
-
-  def update_sulfuras
-    return SulfurasItem.new(@name, @sell_in, @quality).update
-  end
-
-  def update_passes
-    return ConcertItem.new(@name, @sell_in, @quality).update
-  end
-
-  def update
-    return NormalItem.new(@name, @sell_in, @quality).update
-  end
-
   def tick
     case @name
     when "Aged Brie"
-      return update_brie
+      return BrieItem.new(@name, @sell_in, @quality).update
     when "Sulfuras, Hand of Ragnaros"
-      return update_sulfuras
+      return SulfurasItem.new(@name, @sell_in, @quality).update
     when "Backstage passes to a TAFKAL80ETC concert"
-      return update_passes
+      return ConcertItem.new(@name, @sell_in, @quality).update
     else
-      return update
+      return NormalItem.new(@name, @sell_in, @quality).update
     end
   end
 end
