@@ -37,12 +37,14 @@ class Item
   end
 end
 
-class NormalItem
+class BaseItem
   attr_reader :sell_in, :quality
   def initialize(sell_in, quality)
     @sell_in, @quality = sell_in, quality
   end
+end
 
+class NormalItem < BaseItem
   def update
     if @sell_in < 0
       new_quality = @quality-2
@@ -54,12 +56,7 @@ class NormalItem
   end
 end
 
-class BrieItem
-  attr_reader :sell_in, :quality
-  def initialize(sell_in, quality)
-    @sell_in, @quality = sell_in, quality
-  end
-
+class BrieItem < BaseItem
   def update
     if @sell_in < 0
       new_quality = @quality+2
@@ -71,12 +68,7 @@ class BrieItem
   end
 end
 
-class ConcertItem
-  attr_reader :sell_in, :quality
-  def initialize(sell_in, quality)
-    @sell_in, @quality = sell_in, quality
-  end
-
+class ConcertItem < BaseItem
   def update
     case
     when 10 < @sell_in
@@ -93,12 +85,7 @@ class ConcertItem
   end
 end
 
-class SulfurasItem
-  attr_reader :sell_in, :quality
-  def initialize(sell_in, quality)
-    @sell_in, @quality = sell_in, quality
-  end
-
+class SulfurasItem < BaseItem
   def update
     return self
   end
