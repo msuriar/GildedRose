@@ -106,7 +106,7 @@ describe GildedRose do
     foo.update.quality.should eq 0
   end
 
-  it "should decrement ticket sell_by after concert" do
+  it "should decrement ticket sell_in after concert" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 20)
     bar = foo.update
     bar.sell_in.should eq (-3)
@@ -115,5 +115,25 @@ describe GildedRose do
   it "should decrement normal items by 1 while they are in date" do
     foo = UsefulItem.new("+5 Dexterity Vest", 10, 20)
     foo.update.quality.should eq 19
+  end
+
+  it "should decrement sell_in after it's negative" do
+    foo = UsefulItem.new("+5 Dexterity Vest", -1, 20)
+    foo.update.sell_in.should eq (-2)
+  end
+
+  it "should decrement quality at double rate after sell_in is negative" do
+    foo = UsefulItem.new("Elixir of the Mongoose", -1, 20)
+    foo.update.quality.should eq 18
+  end
+
+  it "should keep 0 quality items at 0" do
+    foo = UsefulItem.new("Elixir of the Mongoose", 3, 0)
+    foo.update.quality.should eq 0
+  end
+
+  it "should not decrement quality below 0" do
+    foo = UsefulItem.new("My Hat", -3, 1)
+    foo.update.quality.should eq 0
   end
 end
