@@ -96,8 +96,19 @@ describe GildedRose do
     foo.update.quality.should eq 23
   end
 
-  it "should zero increase ticket quality with 0 days to go" do
+  it "should zero ticket quality with 0 days to go" do
     foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", 0, 20)
     foo.update.quality.should eq 0
+  end
+
+  it "should keep ticket quality at zero after the concert" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 20)
+    foo.update.quality.should eq 0
+  end
+
+  it "should decrement ticket sell_by after concert" do
+    foo = UsefulItem.new("Backstage passes to a TAFKAL80ETC concert", -2, 20)
+    bar = foo.update
+    bar.sell_in.should eq (-3)
   end
 end
