@@ -22,6 +22,9 @@ class UsefulItem < Item
     if quality < 50
       ret.quality += 1
     end
+    if (sell_in < 0 && quality < 49)
+      ret.quality += 1
+    end
     ret.sell_in -= 1
     return ret
   end
@@ -33,6 +36,7 @@ class UsefulItem < Item
   def update
     case @name
     when "Aged Brie"
+      return update_brie
     when "Sulfuras, Hand of Ragnaros"
     end
 
